@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Die Chronik der Umbralion – Weltwiki – Blutstrom-Saga</title>
+
+  <style>
+    :root {
+      --gold: #D8B66A;
+      --schwarz: #050505;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100svh;
+      background: var(--schwarz);
+      color: var(--gold);
+      font-family: Georgia, serif;
+    }
+
+    /* Rechte Navigation: bleibt beim Scrollen an derselben Stelle */
+    .seiten-navigation {
+      position: fixed;
+      top: 50%;
+      right: 2rem;
+      transform: translateY(-50%);
+      z-index: 10;
+      width: 220px;
+      max-height: calc(100svh - 2rem);
+      overflow-y: auto;
+      padding: 1rem;
+      background: rgba(5, 5, 5, 0.96);
+      border: 1px solid var(--gold);
+      box-shadow: 0 0 18px rgba(216, 182, 106, 0.16);
+    }
+
+    .seiten-navigation a {
+      display: block;
+      padding: 0.45rem 0.55rem;
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(216, 182, 106, 0.2);
+      transition: color 0.2s ease, text-shadow 0.2s ease;
+    }
+
+    .seiten-navigation a:hover,
+    .seiten-navigation a:focus-visible,
+    .seiten-navigation a[aria-current="page"] {
+      color: #fff0bd;
+      text-shadow: 0 0 8px var(--gold);
+    }
+
+    .seiten-navigation .nav-marke {
+      margin-bottom: 0.5rem;
+      padding-bottom: 0.8rem;
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-bottom: 1px solid var(--gold);
+    }
+
+    .nav-trenner {
+      height: 1px;
+      margin: 0.7rem 0.55rem;
+      background: var(--gold);
+      opacity: 0.7;
+      box-shadow: 0 0 6px rgba(216, 182, 106, 0.45);
+    }
+
+    .seiten-navigation .nav-siegel {
+      display: block;
+      width: 4.5rem;
+      height: 4.5rem;
+      object-fit: contain;
+      margin: 0 auto 0.5rem;
+    }
+
+    /* Der Seiteninhalt bleibt links neben der festen Navigation */
+    .seitenbereich {
+      width: min(1450px, calc(100% - 4rem));
+      margin: 3rem auto;
+      padding-right: 270px;
+    }
+
+    .seiteninhalt {
+      width: min(900px, 100%);
+      margin: 0 auto;
+      padding: clamp(1.5rem, 4vw, 3rem);
+      background: #090909;
+      border: 1px solid rgba(216, 182, 106, 0.65);
+      box-shadow: 0 0 24px rgba(216, 182, 106, 0.08);
+    }
+
+    .seiten-kicker {
+      margin: 0 0 0.5rem;
+      color: #c7a55c;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0 0 1rem;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      text-shadow: 0 0 12px rgba(216, 182, 106, 0.25);
+    }
+
+    .wiki-zurueck {
+      display: inline-block;
+      margin: 0 0 1.5rem;
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(216, 182, 106, 0.4);
+      transition: color 0.2s ease, text-shadow 0.2s ease;
+    }
+
+    .wiki-zurueck:hover,
+    .wiki-zurueck:focus-visible,
+    .wiki-text a:hover,
+    .wiki-text a:focus-visible {
+      color: #fff0bd;
+      text-shadow: 0 0 8px rgba(216, 182, 106, 0.55);
+    }
+
+    .wiki-text p {
+      line-height: 1.75;
+    }
+
+    .wiki-text a {
+      color: var(--gold);
+      text-decoration-color: rgba(216, 182, 106, 0.55);
+      text-underline-offset: 0.18em;
+      transition: color 0.2s ease, text-shadow 0.2s ease;
+    }
+
+    h2 {
+      margin: 2.4rem 0 0.8rem;
+      padding-bottom: 0.45rem;
+      border-bottom: 1px solid rgba(216, 182, 106, 0.4);
+      font-size: clamp(1.35rem, 3vw, 1.8rem);
+    }
+
+    .unterartikel-gruppe {
+      margin-top: 1.8rem;
+    }
+
+    .unterartikel-gruppe h3 {
+      margin: 0 0 0.8rem;
+      font-size: 1.15rem;
+    }
+
+    .unterartikel-liste {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+      gap: 0.65rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .unterartikel-liste > li > a {
+      min-height: 3rem;
+      display: flex;
+      align-items: center;
+      padding: 0.7rem 0.9rem;
+      color: var(--gold);
+      background: rgba(216, 182, 106, 0.045);
+      border: 1px solid rgba(216, 182, 106, 0.28);
+      text-decoration: none;
+      transition: color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, text-shadow 0.2s ease;
+    }
+
+    .unterartikel-liste > li > a:hover,
+    .unterartikel-liste > li > a:focus-visible,
+    .unterartikel-liste ul a:hover,
+    .unterartikel-liste ul a:focus-visible {
+      color: #fff0bd;
+      border-color: var(--gold);
+      box-shadow: 0 0 14px rgba(216, 182, 106, 0.38);
+      text-shadow: 0 0 7px rgba(216, 182, 106, 0.6);
+    }
+
+    .unterartikel-liste ul {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem 0.8rem;
+      margin: 0.45rem 0 0.25rem;
+      padding: 0.65rem 0 0 1rem;
+      border-left: 1px solid rgba(216, 182, 106, 0.42);
+      list-style: none;
+    }
+
+    .unterartikel-liste ul a {
+      display: inline-block;
+      padding: 0.3rem 0.4rem;
+      color: var(--gold);
+      border-bottom: 1px solid rgba(216, 182, 106, 0.2);
+      text-decoration: none;
+      transition: color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, text-shadow 0.2s ease;
+    }
+
+    @media (max-width: 800px) {
+      .seiten-navigation {
+        position: static;
+        width: auto;
+        max-height: none;
+        margin: 1rem;
+        transform: none;
+      }
+
+      .seitenbereich {
+        width: auto;
+        margin: 1rem;
+        padding-right: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="seiten-navigation" aria-label="Seitennavigation">
+    <img class="nav-siegel" src="BS-Wappen.png" alt="BS-Siegel der Blutstrom-Saga">
+    <a class="nav-marke" href="index.html">Start</a>
+    <a href="buecher.html">Bücher</a>
+    <a href="charaktere.html">Charaktere</a>
+    <a href="welt.html" aria-current="page">Welt</a>
+    <a href="ueber-mich.html">Über mich</a>
+    <a href="blog.html">Blog</a>
+    <a href="extras.html">Extras</a>
+
+    <div class="nav-trenner" aria-hidden="true"></div>
+
+    <a href="kontakt.html">Kontakt</a>
+    <a href="impressum.html">Impressum</a>
+    <a href="datenschutz.html">Datenschutz</a>
+  </nav>
+
+  <div class="seitenbereich">
+    <main class="seiteninhalt">
+      <a class="wiki-zurueck" href="artefakte.html">← Zum Artikel „Artefakte“</a>
+      <p class="seiten-kicker">Weltwiki · Artefakte</p>
+      <h1>Die Chronik der Umbralion</h1>
+
+      <div class="wiki-text">
+        <p>
+          Die <strong>Chronik der Umbralion</strong> ist ein einzigartiges vampirisches Artefakt in Form eines Buches. Sie wurde vom ersten bedeutenden Artefaktweber der <a href="blutlinie-umbralion.html">Blutlinie der Umbralion</a> erschaffen und dient ihren Besitzern als umfassende Anleitung zur Herstellung von Artefakten.
+        </p>
+        <p>
+          Anders als ein gewöhnliches Nachschlagewerk besitzt die Chronik keinen festgelegten Inhalt. Sie erkennt die Fähigkeiten, Möglichkeiten und das Potenzial ihrer jeweiligen Besitzer und passt das in ihr enthaltene Wissen selbstständig daran an. Dadurch kann sie nicht nur bekannte Artefakte beschreiben, sondern eigenständig Anleitungen für vollkommen neue Artefakte hervorbringen.
+        </p>
+
+        <section aria-labelledby="entstehung-seelenfragmente">
+          <h2 id="entstehung-seelenfragmente">Entstehung und Seelenfragmente</h2>
+          <p>
+            Bei der Erschaffung der Chronik ging ein Teil der Seele ihres ursprünglichen Schöpfers in das Artefakt über. Ob dies eine unbeabsichtigte Folge ihrer Herstellung oder eine bewusste Entscheidung war, ist nicht bekannt. In späteren Generationen hinterließen weitere Angehörige der Umbralion freiwillig Teile ihrer eigenen Seele in der Chronik.
+          </p>
+          <p>
+            Das Abtrennen eines solchen Seelenfragments hat dauerhafte Folgen für den Vampir und schwächt ihn. Die hinterlassenen Fragmente bestehen auch über den Tod ihres Ursprungs hinaus fort.
+          </p>
+          <p>
+            Dabei handelt es sich jedoch nicht um vollständige Persönlichkeiten oder ein fortbestehendes Bewusstsein. Ein Seelenfragment bewahrt vielmehr bestimmte Eigenschaften, Neigungen und grundlegende Wesenszüge seines Ursprungs. Diese können das Verhalten der Chronik beeinflussen und insbesondere darauf einwirken, welches Wissen sie ihren Besitzern zugänglich macht.
+          </p>
+          <p>
+            So kann ein stark ausgeprägter Beschützerinstinkt innerhalb eines Seelenfragments dazu führen, dass die Chronik besonders gefährliche Artefakte vor einem Besitzer verbirgt und bevorzugt sichere Lösungen anbietet. Seelenfragmente können jedoch auch wieder aus der Chronik entfernt werden, wodurch entsprechende Einschränkungen aufgehoben werden können.
+          </p>
+        </section>
+
+        <section aria-labelledby="wahl-des-besitzers">
+          <h2 id="wahl-des-besitzers">Wahl des Besitzers</h2>
+          <p>
+            Die Chronik entscheidet selbstständig, wen sie als ihren Besitzer anerkennt. Entscheidend ist dabei vor allem das Potenzial des zukünftigen Benutzers als Artefaktweber. Da die Chronik ihre Möglichkeiten ausschöpfen will, bevorzugt sie Vampire, die in der Lage sind, eine große Vielfalt auch komplexer Artefakte zu erschaffen.
+          </p>
+          <p>
+            Grundsätzlich ist der Besitz nicht ausschließlich Angehörigen der Umbralion vorbehalten. Da jedoch zahlreiche Seelenfragmente dieser Blutlinie in der Chronik verwoben sind und ihre Entscheidungen beeinflussen, ist es für Außenstehende äußerst schwierig, von ihr als würdig anerkannt zu werden.
+          </p>
+          <p>
+            Die Entscheidung der Chronik ist nicht endgültig. Sie kann einem bisherigen Besitzer ihre Anerkennung wieder entziehen oder weitere Besitzer akzeptieren. Auf der ersten Seite erscheint stets selbstständig der Name der Person oder Personen, denen die Chronik gegenwärtig gehört. Ändern sich ihre Besitzer, verändert sich auch diese Aufschrift.
+          </p>
+          <p>
+            Die Chronik kann mehrere Personen gleichzeitig anerkennen. Dabei berücksichtigt sie nicht ausschließlich deren individuelle Fähigkeiten im Artefaktweben. Auch besondere Eigenschaften und Möglichkeiten eines Mitbesitzers können das Potenzial erweitern, das einem Artefaktweber in Verbindung mit ihm zur Verfügung steht. Entsprechend erweitert sich auch das Wissen der Chronik.
+          </p>
+        </section>
+
+        <section aria-labelledby="inhalt-potenzial">
+          <h2 id="inhalt-potenzial">Inhalt und Potenzial</h2>
+          <p>
+            Die Chronik besitzt keine feste Seitenzahl. Ihr tatsächlicher Umfang richtet sich nach dem Potenzial ihrer anerkannten Besitzer und verändert sich gemeinsam mit deren Möglichkeiten.
+          </p>
+          <p>
+            Jede verfügbare Seite enthält eine vollständige Anleitung für ein bestimmtes Artefakt. Neben den benötigten Zutaten beschreibt sie den Herstellungsprozess Schritt für Schritt und enthält sämtliche Besonderheiten und Hinweise, die für eine erfolgreiche Erschaffung notwendig sind.
+          </p>
+          <p>
+            Dabei ist die Chronik nicht auf bereits existierende Artefakte oder das Wissen früherer Generationen beschränkt. Erkennt sie innerhalb der Möglichkeiten ihrer Besitzer eine bislang unbekannte Lösung, kann sie selbstständig ein neues Rezept entwickeln. Dabei kann sie auch neu entstandene oder zuvor unbekannte Materialien berücksichtigen. In solchen Fällen entstehen innerhalb der Chronik eigenständig neue Seiten mit den entsprechenden Anleitungen.
+          </p>
+          <p>
+            Seelenfragmente können den Zugriff auf Teile dieses Wissens beschränken. Ein Besitzer verfügt daher nicht zwangsläufig jederzeit über sämtliche Seiten, die seinem eigentlichen Potenzial entsprechen. Werden solche Einschränkungen aufgehoben, kann sich der zugängliche Inhalt entsprechend erweitern.
+          </p>
+          <p>
+            Die Anzahl ihrer Seiten ist dabei nicht unmittelbar an ihre äußere Größe gebunden. Die Chronik kann ihren inneren Umfang verändern, ohne sichtbar dicker werden zu müssen.
+          </p>
+        </section>
+
+        <section aria-labelledby="eigenleben-verhalten">
+          <h2 id="eigenleben-verhalten">Eigenleben und Verhalten</h2>
+          <p>
+            Durch die in ihr verwobenen Seelenfragmente und ihre besonderen magischen Eigenschaften besitzt die Chronik eine Form von Eigenleben. Sie verfügt jedoch nicht über eine eigenständige Persönlichkeit und kommuniziert weder durch Sprache noch durch ein bewusstes Gespräch mit ihren Besitzern.
+          </p>
+          <p>
+            Stattdessen äußert sie sich vor allem durch ihr Verhalten. Erkennt die Chronik die Absicht oder das aktuelle Problem ihres Besitzers, blättert sie selbstständig zu dem Artefakt, das sie für die geeignetste Lösung hält. Welche Lösung sie bevorzugt, kann dabei auch durch die in ihr enthaltenen Seelenfragmente beeinflusst werden.
+          </p>
+          <p>
+            Die Chronik sorgt außerdem selbst dafür, in unmittelbarer Nähe ihrer Besitzer zu bleiben. Wird sie nicht benutzt, kann sie sich vollständig in ein Lederarmband verwandeln und am Körper ihres Besitzers tragen lassen. Diese Verwandlung ist physisch: Das Buch verändert tatsächlich seine Form und kann sich ebenso wieder zurückverwandeln. Der Besitzer kann ihr den entsprechenden Impuls geben, die eigentliche Transformation führt die Chronik jedoch selbst aus.
+          </p>
+          <p>
+            Auch den Zugriff anderer Personen kontrolliert sie weitgehend eigenständig. Zwar ist es grundsätzlich möglich, dass Außenstehende ihre Seiten betrachten, in der Praxis verhindert die Chronik dies jedoch meist selbst. Sie schließt sich, wenn ihr Besitzer sie nicht verwendet, und kehrt gewöhnlich in ihre Armbandform zurück, sodass sie dauerhaft bei ihm verbleibt.
+          </p>
+        </section>
+      </div>
+
+      <section aria-labelledby="verwandte-artikel">
+        <h2 id="verwandte-artikel">Verwandter Artikel</h2>
+        <ul class="unterartikel-liste">
+          <li><a href="blutlinie-umbralion.html">Die Blutlinie der Umbralion</a></li>
+        </ul>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
