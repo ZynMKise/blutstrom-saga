@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <!-- Einbahnstrasse: Desktop-Startseite wechselt bei schmalem Viewport zur mobilen Seite. -->
+  <script>
+    (function () {
+      const mobileAnsicht = window.matchMedia('(max-width: 760px)');
+      let weiterleitungLaeuft = false;
+      function mobileStartseiteOeffnen() {
+        if (mobileAnsicht.matches && !weiterleitungLaeuft) {
+          weiterleitungLaeuft = true;
+          window.location.replace('mobil-index.html' + window.location.search + window.location.hash);
+        }
+      }
+      mobileStartseiteOeffnen();
+      mobileAnsicht.addEventListener('change', mobileStartseiteOeffnen);
+      window.addEventListener('pageshow', mobileStartseiteOeffnen);
+    }());
+  </script>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blutstrom-Saga</title>
+
+  <style>
+    :root {
+      --gold: #D8B66A;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100svh;
+      background: #050505;
+      color: var(--gold);
+      font-family: Georgia, serif;
+    }
+
+    .startbild {
+      position: relative;
+      width: min(98vw, 1800px);
+      height: calc(100svh - 2rem);
+      margin: 1rem auto 0;
+    }
+
+    .startbild-foto {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      clip-path: polygon(
+        0 0, 30% 0, 38% 13%, 62% 13%, 70% 0, 100% 0,
+        100% 100%, 0 100%
+      );
+    }
+
+    .goldrahmen {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .goldrahmen polygon {
+      fill: none;
+      stroke: var(--gold);
+      stroke-width: 4;
+      vector-effect: non-scaling-stroke;
+      stroke-linejoin: round;
+    }
+
+    .logo-wappen {
+      position: absolute;
+      right: 57%;
+      bottom: 72%;
+      width: clamp(5rem, 48vw, 35rem);
+      max-height: 28%;
+      object-fit: contain;
+      z-index: 2;
+    }
+
+    h1 {
+      position: absolute;
+      top: -5%;
+      left: 50%;
+      width: 50%;
+      height: 20%;
+      margin: 0;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    h1 img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    nav.seitenmenue {
+      position: absolute;
+      left: 50%;
+      bottom: 2%;
+      transform: translateX(-50%);
+      width: min(80%, 850px);
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      white-space: normal;
+      z-index: 3;
+    }
+
+    .leisten-zeile {
+      position: relative;
+      width: 100%;
+      height: clamp(4.5rem, 7vw, 5rem);
+      overflow: hidden;
+    }
+
+    .leisten-zeile img {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .leisten-zeile-unten {
+      width: 80%;
+      margin: 0 auto;
+    }
+
+    /* Ebene 1: Texte. Sie liegen über der Grafik, sind aber selbst nicht anklickbar. */
+    .leisten-texte {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-rows: minmax(0, 1fr);
+      align-items: center;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* Diese Werte richten nur die Texte der oberen Leiste aus. */
+    .leisten-texte-sechs {
+      grid-template-columns: 28% 7% 15% 15% 7% 28%;
+      transform: translateY(-0.2rem);
+    }
+
+    /* Diese Werte richten nur die Texte der unteren Leiste aus. */
+    .leisten-texte-drei {
+      grid-template-columns: 44% 12% 44%;
+    }
+
+    .leisten-texte span {
+      justify-self: center;
+      color: var(--gold);
+      font-size: clamp(0.55rem, 1vw, 1rem);
+      text-align: center;
+      white-space: nowrap;
+      text-shadow: 0 1px 6px #000;
+    }
+
+    .leisten-texte-sechs span:nth-child(2) {
+      transform: translateX(-2.5rem);
+    }
+
+    .leisten-texte-sechs span:nth-child(5) {
+      transform: translateX(2rem);
+    }
+
+    .leisten-texte-sechs span:nth-child(6) {
+      transform: translateX(0.5rem);
+    }
+
+    /* Ebene 2: unsichtbare, getrennte Linkfelder über den Segmenten. */
+    .leisten-links {
+      position: absolute;
+      display: grid;
+      grid-template-rows: minmax(0, 1fr);
+      align-items: stretch;
+      z-index: 3;
+    }
+
+    /* Klickflächen oben: Randverzierungen links und rechts bleiben frei. */
+    .leisten-links-sechs {
+      inset: 14% 5% 22%;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+
+    /* Klickflächen unten: Randverzierungen links und rechts bleiben frei. */
+    .leisten-links-drei {
+      inset: 18% 8%;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .leisten-links a {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border-radius: 0.3rem;
+      transition: box-shadow 0.2s ease;
+    }
+
+    .leisten-links a:hover {
+      box-shadow: inset 0 0 14px 2px rgba(216, 182, 106, 0.55);
+    }
+
+    .leisten-links a:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: -3px;
+    }
+
+    @media (max-width: 600px) {
+      .startbild {
+        width: 96vw;
+        height: min(80svh, 80vw);
+        margin: 10svh auto;
+      }
+
+      nav.seitenmenue {
+        width: 80%;
+        gap: 0.2rem;
+      }
+
+      .leisten-texte span {
+        font-size: 0.58rem;
+      }
+    }
+
+    @media (min-width: 601px) {
+      html,
+      body {
+        height: 100%;
+        overflow: hidden;
+      }
+
+      body {
+        min-height: 0;
+      }
+
+      .startbild {
+        height: calc(100svh - 2rem);
+        margin: 1rem auto;
+      }
+    }
+    .bild-links {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.bild-link {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+  background: transparent;
+  pointer-events: auto;
+}
+
+.bild-link:hover,
+.bild-link:focus-visible {
+  background: radial-gradient(
+    ellipse,
+    rgba(216, 182, 106, 0.30) 0%,
+    rgba(216, 182, 106, 0.12) 55%,
+    transparent 78%
+  );
+  filter: drop-shadow(0 0 8px rgba(216, 182, 106, 0.7));
+}
+
+.bild-link:focus-visible {
+  outline: 2px solid var(--gold);
+}
+
+/* Bücherregal */
+.bild-link-buecher {
+  left: 1%;
+  top: 15%;
+  width: 21%;
+  height: 70%;
+}
+
+/* Porträts */
+.bild-link-charaktere {
+  left: 33%;
+  top: 12%;
+  width: 23%;
+  height: 38%;
+}
+
+/* Globus */
+.bild-link-welt {
+  left: 17%;
+  top: 52%;
+  width: 22%;
+  height: 28%;
+}
+
+/* Schreibtischoberfläche */
+.bild-link-ueber-mich {
+  left: 45%;
+  top: 51%;
+  width: 25%;
+  height: 15%;
+}
+
+/* Pinnwand */
+.bild-link-blog {
+  left: 64%;
+  top: 13%;
+  width: 16%;
+  height: 38%;
+}
+
+/* Mond */
+.bild-link-extras {
+  left: 85%;
+  top: 1%;
+  width: 12%;
+  height: 12%;
+}
+
+/* Schiff im Glas */
+.bild-link-gedankenhafen {
+  left: 66%;
+  top: 67%;
+  width: 15%;
+  height: 17%;
+}
+
+/* BS-Siegel */
+.bild-link-kontakt {
+  left: 21.5%;
+  top: 0%;
+  width: 12%;
+  height: 25%;
+}
+
+/* Menütext leuchtet, wenn das passende Motiv oder der Menüpunkt berührt wird */
+body:has(.bild-link-buecher:hover) .leisten-texte-sechs span:nth-child(1),
+body:has(.leisten-links-sechs a:nth-child(1):hover) .leisten-texte-sechs span:nth-child(1),
+
+body:has(.bild-link-charaktere:hover) .leisten-texte-sechs span:nth-child(2),
+body:has(.leisten-links-sechs a:nth-child(2):hover) .leisten-texte-sechs span:nth-child(2),
+
+body:has(.bild-link-welt:hover) .leisten-texte-sechs span:nth-child(3),
+body:has(.leisten-links-sechs a:nth-child(3):hover) .leisten-texte-sechs span:nth-child(3),
+
+body:has(.bild-link-ueber-mich:hover) .leisten-texte-sechs span:nth-child(4),
+body:has(.leisten-links-sechs a:nth-child(4):hover) .leisten-texte-sechs span:nth-child(4),
+
+body:has(.bild-link-blog:hover) .leisten-texte-sechs span:nth-child(5),
+body:has(.leisten-links-sechs a:nth-child(5):hover) .leisten-texte-sechs span:nth-child(5),
+
+body:has(.bild-link-extras:hover) .leisten-texte-sechs span:nth-child(6),
+body:has(.leisten-links-sechs a:nth-child(6):hover) .leisten-texte-sechs span:nth-child(6),
+
+body:has(.bild-link-kontakt:hover) .leisten-texte-drei span:nth-child(1),
+body:has(.leisten-links-drei a:nth-child(1):hover) .leisten-texte-drei span:nth-child(1) {
+  color: #fff0bd;
+  text-shadow: 0 0 8px var(--gold), 0 0 16px var(--gold);
+}
+
+/* Motiv leuchtet, wenn der passende Menüpunkt berührt wird */
+body:has(.leisten-links-sechs a:nth-child(1):hover) .bild-link-buecher,
+body:has(.leisten-links-sechs a:nth-child(2):hover) .bild-link-charaktere,
+body:has(.leisten-links-sechs a:nth-child(3):hover) .bild-link-welt,
+body:has(.leisten-links-sechs a:nth-child(4):hover) .bild-link-ueber-mich,
+body:has(.leisten-links-sechs a:nth-child(5):hover) .bild-link-blog,
+body:has(.leisten-links-sechs a:nth-child(6):hover) .bild-link-extras,
+body:has(.leisten-links-drei a:nth-child(1):hover) .bild-link-kontakt {
+  background: radial-gradient(
+    ellipse,
+    rgba(216, 182, 106, 0.30) 0%,
+    rgba(216, 182, 106, 0.12) 55%,
+    transparent 78%
+  );
+  filter: drop-shadow(0 0 8px rgba(216, 182, 106, 0.7));
+}
+/* Impressum und Datenschutz leuchten beim Darüberfahren auf */
+body:has(.leisten-links-drei a:nth-child(2):hover)
+  .leisten-texte-drei span:nth-child(2),
+body:has(.leisten-links-drei a:nth-child(3):hover)
+  .leisten-texte-drei span:nth-child(3) {
+  color: #fff0bd;
+  text-shadow: 0 0 8px var(--gold), 0 0 16px var(--gold);
+}
+  </style>
+</head>
+
+<body>
+  <main class="startbild">
+    <img
+      class="startbild-foto"
+      src="HauptH.png"
+      alt="Ein geheimnisvolles Arbeitszimmer bei Nacht"
+    >
+
+    <svg
+      class="goldrahmen"
+      viewBox="0 0 1000 700"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <polygon points="0,0 300,0 380,91 620,91 700,0 1000,0 1000,700 0,700" />
+    </svg>
+
+    <img
+      class="logo-wappen"
+      src="BS-Wappen.png"
+      alt="Wappen der Blutstrom-Saga"
+    >
+
+    <h1>
+      <img src="Blutstrom-Saga.png" alt="Blutstrom-Saga">
+    </h1>
+
+    <div class="bild-links" aria-label="Interaktive Bereiche des Titelbilds">
+      <a class="bild-link bild-link-buecher" href="buecher.html" aria-label="Bücher"></a>
+      <a class="bild-link bild-link-charaktere" href="charaktere.html" aria-label="Charaktere"></a>
+      <a class="bild-link bild-link-welt" href="welt.html" aria-label="Welt"></a>
+      <a class="bild-link bild-link-ueber-mich" href="ueber-mich.html" aria-label="Über mich"></a>
+      <a class="bild-link bild-link-blog" href="blog.html" aria-label="Blog"></a>
+      <a class="bild-link bild-link-extras" href="extras.html" aria-label="Extras"></a>
+      <a class="bild-link bild-link-gedankenhafen" href="gedankenhafen.html" aria-label="Gedankenhafen"></a>
+      <a class="bild-link bild-link-kontakt" href="kontakt.html" aria-label="Kontakt"></a>
+    </div>
+  </main>
+
+  <nav class="seitenmenue" aria-label="Hauptnavigation">
+    <div class="leisten-zeile">
+      <img src="Obere%20Leiste.png" alt="">
+
+      <div class="leisten-texte leisten-texte-sechs" aria-hidden="true">
+        <span>Bücher</span>
+        <span>Charaktere</span>
+        <span>Welt</span>
+        <span>Über mich</span>
+        <span>Blog</span>
+        <span>Extras</span>
+      </div>
+
+      <div class="leisten-links leisten-links-sechs">
+        <a href="buecher.html" aria-label="Bücher"></a>
+        <a href="charaktere.html" aria-label="Charaktere"></a>
+        <a href="welt.html" aria-label="Welt"></a>
+        <a href="ueber-mich.html" aria-label="Über mich"></a>
+        <a href="blog.html" aria-label="Blog"></a>
+        <a href="extras.html" aria-label="Extras"></a>
+      </div>
+    </div>
+
+    <div class="leisten-zeile leisten-zeile-unten">
+      <img src="Untere%20Leiste.png" alt="">
+
+      <div class="leisten-texte leisten-texte-drei" aria-hidden="true">
+        <span>Kontakt</span>
+        <span>Impressum</span>
+        <span>Datenschutz</span>
+      </div>
+
+      <div class="leisten-links leisten-links-drei">
+        <a href="kontakt.html" aria-label="Kontakt"></a>
+        <a href="impressum.html" aria-label="Impressum"></a>
+        <a href="datenschutz.html" aria-label="Datenschutz"></a>
+      </div>
+    </div>
+  </nav>
+</body>
+</html>

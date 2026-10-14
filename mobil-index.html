@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="de">
+<head>
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blutstrom-Saga – Mobile Startseite</title>
+<style>
+:root{--gold:#d8b66a}*{box-sizing:border-box}html{background:#050505}body{margin:0;background:#050505;color:var(--gold);font-family:Georgia,serif}
+/* Alle Elemente liegen im selben proportional skalierten Bildraum. */
+.startseite{position:relative;width:min(100%,680px);margin:0 auto;isolation:isolate;background:#050505}
+.raum{display:block;width:100%;height:auto;aspect-ratio:935/1683}
+.titel{position:absolute;top:1.5%;left:50%;transform:translateX(-50%);width:94%;height:8.5%;object-fit:contain;filter:drop-shadow(0 2px 5px #000);z-index:2;pointer-events:none}
+/* Transparente, echte Links über den Motiven – nicht über dem Menü. */
+.motiv{position:absolute;display:block;z-index:3;border-radius:22%;-webkit-tap-highlight-color:rgba(216,182,106,.25);touch-action:manipulation}
+.motiv:hover,.motiv:focus-visible{outline:2px solid var(--gold);outline-offset:-2px;background:rgba(216,182,106,.12);box-shadow:inset 0 0 18px rgba(216,182,106,.3)}
+.buecher{left:0%;top:10%;width:27%;height:36%}.charaktere{left:29%;top:14%;width:30%;height:16%}.welt{left:2%;top:41%;width:39%;height:25%}.ueber{left:27%;top:34%;width:40%;height:20%}.blog{left:60%;top:17%;width:20%;height:18%}.extras{left:87%;top:12%;width:11%;height:10%}.gedankenhafen{left:69%;top:50%;width:30%;height:12%}
+/* Navigationsleiste unten im Bild. Dunkler Verlauf sorgt für Lesbarkeit. */
+.navigation{position:absolute;left:0;right:0;bottom:0;z-index:5;padding:3.5% 1.5% 2%;background:linear-gradient(to bottom,transparent,rgba(0,0,0,.68) 24%,rgba(0,0,0,.88) 100%)}
+.leiste{position:relative;width:100%;aspect-ratio:2048/250;margin:0 auto 1%;background:url('Untere%20Leiste.png') center/100% 100% no-repeat;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:center;padding:0 5%}
+.leiste a{display:flex;align-items:center;justify-content:center;min-width:0;height:100%;color:#f3d995;font-weight:600;text-decoration:none;text-align:center;font-size:clamp(10px,3.15vw,19px);text-shadow:0 1px 4px #000,0 0 5px #000;line-height:1.05;touch-action:manipulation}
+.leiste a:hover,.leiste a:focus-visible{color:#fff7d2;text-shadow:0 0 8px var(--gold);outline:1px solid var(--gold);outline-offset:-3px}
+/* Größere Touchflächen ohne Verzerrung der Goldgrafik. */
+@media(max-width:430px){.navigation{padding-bottom:2%}.leiste{aspect-ratio:2048/290;margin-bottom:1.1%}.leiste a{font-size:clamp(10px,3.1vw,14px)}}
+@media(min-width:681px){body{padding:12px 0}.startseite{box-shadow:0 0 0 1px #70582f,0 0 35px #000}}
+</style>
+</head>
+<body>
+<main class="startseite" aria-label="Interaktives Arbeitszimmer der Blutstrom-Saga">
+  <img class="raum" src="MobilHauptH.png" alt="Nächtliches Arbeitszimmer mit Bücherregal, Porträts, Globus, Schreibtisch, Pinnwand und einem Schiff in einer Flasche">
+  <img class="titel" src="Blutstrom-Saga.png" alt="Blutstrom-Saga">
+  <a class="motiv buecher" href="buecher.html" aria-label="Bücherregal – Bücher"></a>
+  <a class="motiv charaktere" href="charaktere.html" aria-label="Porträts – Charaktere"></a>
+  <a class="motiv welt" href="welt.html" aria-label="Globus – Welt"></a>
+  <a class="motiv ueber" href="ueber-mich.html" aria-label="Schreibtisch – Über mich"></a>
+  <a class="motiv blog" href="blog.html" aria-label="Pinnwand – Blog"></a>
+  <a class="motiv extras" href="extras.html" aria-label="Mond – Extras"></a>
+  <a class="motiv gedankenhafen" href="gedankenhafen.html" aria-label="Schiff in der Flasche"></a>
+  <nav class="navigation" aria-label="Hauptnavigation">
+    <div class="leiste"><a href="buecher.html">Bücher</a><a href="charaktere.html">Charaktere</a><a href="welt.html">Welt</a></div>
+    <div class="leiste"><a href="ueber-mich.html">Über mich</a><a href="blog.html">Blog</a><a href="extras.html">Extras</a></div>
+    <div class="leiste"><a href="kontakt.html">Kontakt</a><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></div>
+  </nav>
+</main>
+</body>
+</html>

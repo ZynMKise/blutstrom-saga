@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Über mich – Blutstrom-Saga</title>
+
+  <style>
+    :root {
+      --gold: #D8B66A;
+      --schwarz: #050505;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100svh;
+      background-color: var(--schwarz);
+background-image: url("allgemeiner%20Hintergrund.png");
+background-position: center center;
+background-size: cover;
+background-repeat: no-repeat;
+background-attachment: fixed;
+      color: var(--gold);
+      font-family: Georgia, serif;
+    }
+
+    /* Rechte Navigation: bleibt beim Scrollen an derselben Stelle */
+    .seiten-navigation {
+      position: fixed;
+      top: 50%;
+      right: 2rem;
+      transform: translateY(-50%);
+      z-index: 10;
+
+      width: 220px;
+      max-height: calc(100svh - 2rem);
+      overflow-y: auto;
+      padding: 1rem;
+
+      background: rgba(5, 5, 5, 0.96);
+      border: 1px solid var(--gold);
+      box-shadow: 0 0 18px rgba(216, 182, 106, 0.16);
+    }
+
+    .seiten-navigation a {
+      display: block;
+      padding: 0.45rem 0.55rem;
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(216, 182, 106, 0.2);
+      transition: color 0.2s ease, text-shadow 0.2s ease;
+    }
+
+    .seiten-navigation a:hover,
+    .seiten-navigation a:focus-visible,
+    .seiten-navigation a[aria-current="page"] {
+      color: #fff0bd;
+      text-shadow: 0 0 8px var(--gold);
+    }
+
+    .seiten-navigation .nav-marke {
+      margin-bottom: 0.5rem;
+      padding-bottom: 0.8rem;
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-bottom: 1px solid var(--gold);
+    }
+
+    .nav-trenner {
+      height: 1px;
+      margin: 0.7rem 0.55rem;
+      background: var(--gold);
+      opacity: 0.7;
+      box-shadow: 0 0 6px rgba(216, 182, 106, 0.45);
+    }
+
+    /* Der Seiteninhalt bleibt links neben der festen Navigation */
+    .seitenbereich {
+      width: min(1450px, calc(100% - 4rem));
+      margin: 3rem auto;
+      padding-right: 270px;
+    }
+
+    .seiteninhalt {
+      width: min(900px, 100%);
+      margin: 0 auto;
+      padding: clamp(1.5rem, 4vw, 3rem);
+
+      background: rgba(9, 9, 9, 0.96);
+      border: 1px solid rgba(216, 182, 106, 0.65);
+      box-shadow: 0 0 24px rgba(216, 182, 106, 0.08);
+    }
+
+    .seiten-kicker {
+      margin: 0 0 0.5rem;
+      color: #c7a55c;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0 0 2rem;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      text-shadow: 0 0 12px rgba(216, 182, 106, 0.25);
+    }
+
+    h2 {
+      margin: 2rem 0 0.75rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid rgba(216, 182, 106, 0.4);
+    }
+
+    p {
+      line-height: 1.7;
+    }
+
+    .steckbrief {
+      display: grid;
+      grid-template-columns: max-content 1fr;
+      gap: 0.65rem 1.2rem;
+      margin: 1rem 0 0;
+      line-height: 1.6;
+    }
+
+    .steckbrief dt {
+      font-weight: bold;
+    }
+
+    .steckbrief dd {
+      margin: 0;
+    }
+
+    .leitsatz {
+      margin: 2rem 0 0;
+      padding: 1rem 1.25rem;
+      border-left: 2px solid var(--gold);
+      background: rgba(216, 182, 106, 0.06);
+      font-style: italic;
+      line-height: 1.7;
+    }
+
+    .seiten-navigation .nav-siegel {
+      display: block;
+      width: 4.5rem;
+      height: 4.5rem;
+      object-fit: contain;
+      margin: 0 auto 0.5rem;
+    }
+
+    @media (max-width: 600px) {
+      .steckbrief {
+        grid-template-columns: 1fr;
+        gap: 0.15rem;
+      }
+
+      .steckbrief dd {
+        margin-bottom: 0.65rem;
+      }
+    }
+
+    /* Mobile Darstellung: Navigation und Inhalt untereinander */
+    @media (max-width: 760px) {
+      /* Feststehende Hintergrundebene auch auf mobilen Browsern */
+      body { background-image: none; }
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: url("allgemeiner%20Hintergrund.png") center center / cover no-repeat;
+        pointer-events: none;
+        z-index: 0;
+      }
+      .seiten-navigation, .seitenbereich {
+        position: relative;
+        z-index: 1;
+      }
+      .seiten-navigation {
+        position: relative;
+        top: auto;
+        right: auto;
+        transform: none;
+        width: calc(100% - 1.5rem);
+        max-height: none;
+        overflow: visible;
+        margin: 0.75rem auto 0;
+        padding: 0.7rem 0.9rem;
+      }
+      .seiten-navigation .nav-siegel {
+        width: 3rem;
+        height: 3rem;
+        margin-bottom: 0.25rem;
+      }
+      .seiten-navigation .nav-marke { margin-bottom: 0; }
+      .seiten-navigation .nav-links { display: none; }
+      .seiten-navigation.menu-offen .nav-links { display: block; }
+      .seiten-navigation .menue-schalter {
+        display: block;
+        width: 100%;
+        padding: 0.6rem;
+        margin-top: 0.4rem;
+        background: rgba(216,182,106,0.08);
+        color: var(--gold);
+        border: 1px solid rgba(216,182,106,0.55);
+        font: bold 1rem Georgia, serif;
+        cursor: pointer;
+      }
+      .seitenbereich {
+        width: calc(100% - 1.5rem);
+        margin: 1rem auto 2rem;
+        padding-right: 0;
+      }
+      .seiteninhalt { width: 100%; padding: 1.25rem; overflow-wrap: anywhere; }
+      h1 { font-size: clamp(1.8rem, 8vw, 2.5rem); }
+      h2 { font-size: 1.3rem; }
+    }
+    @media (min-width: 761px) {
+      .seiten-navigation .menue-schalter { display: none; }
+    }
+
+    /* Kompaktere Typografie auf Smartphones */
+    @media (max-width: 600px) {
+      .seiteninhalt { padding: 1rem; font-size: 14px; }
+      .seiten-kicker { font-size: 12px; margin-bottom: 0.4rem; }
+      h1 { font-size: 26px; margin-bottom: 1.2rem; }
+      h2 { font-size: 19px; margin: 1.4rem 0 0.5rem; }
+      p { font-size: 14px; line-height: 1.5; margin: 0 0 0.8rem; }
+      .seiten-navigation a { font-size: 14px; }
+      .steckbrief, .leitsatz { font-size: 14px; line-height: 1.5; }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="seiten-navigation" aria-label="Seitennavigation">
+    <img class="nav-siegel" src="BS-Wappen.png" alt="BS-Siegel der Blutstrom-Saga">
+
+    <a class="nav-marke" href="index.html">Start</a>
+    <button class="menue-schalter" type="button" aria-expanded="false" aria-controls="mobile-nav-links">☰ Menü öffnen</button>
+    <div class="nav-links" id="mobile-nav-links">
+    <a href="buecher.html">Bücher</a>
+    <a href="charaktere.html">Charaktere</a>
+    <a href="welt.html">Welt</a>
+    <a href="ueber-mich.html" aria-current="page">Über mich</a>
+    <a href="blog.html">Blog</a>
+    <a href="extras.html">Extras</a>
+
+    <div class="nav-trenner" aria-hidden="true"></div>
+
+    <a href="kontakt.html">Kontakt</a>
+    <a href="impressum.html">Impressum</a>
+    <a href="datenschutz.html">Datenschutz</a>
+    </div>
+  </nav>
+
+  <div class="seitenbereich">
+    <main class="seiteninhalt">
+      <p class="seiten-kicker">Blutstrom-Saga</p>
+      <h1>Über mich</h1>
+
+      <section>
+        <h2>Der Mensch hinter der Saga</h2>
+
+        <p>
+          Ich bin Zyn M. Kise, Autor und Selfpublisher der Blutstrom-Saga.
+          In meinen Geschichten interessieren mich besonders die Figuren,
+          ihre Gefühle und die Beziehungen, die sie miteinander verbinden
+          und verändern.
+        </p>
+
+        <p>
+          Beruflich bin ich in der Buchhaltung zuhause, auf den ersten Blick
+          eine ganz andere Welt als das Schreiben. Dabei ergänzen sich beide
+          Seiten für mich: Die Ordnung hilft, kreative Ideen in gute Bahnen
+          zu lenken, und die Kreativität sorgt dafür, dass auch der Büroalltag
+          nicht grau und eintönig bleibt.
+        </p>
+
+        <p>
+          Während ich an einem Buch arbeite, beginnt sich in meinem Kopf oft
+          schon die nächste Geschichte zu formen. Das macht Vorfreude auf das,
+          was kommt, auch wenn sie sich mit der Wehmut mischt, wenn ein
+          aktuelles Buch seinem Ende entgegengeht. Beim Schreiben tauche ich
+          tief in die Geschichte ein und bin gern bei meinen Figuren. Mich von
+          ihnen zu verabschieden fällt mir nie leicht.
+        </p>
+
+        <p>
+          Das Schreiben schenkt mir Wärme, Akzeptanz, Freude und Glück. Auch
+          schwierige Momente gehören dazu: Ich erlebe sie beim Schreiben
+          intensiv mit und begleite meine Figuren gern durch alles, was ihnen
+          begegnet. Ich hoffe, dass Leserinnen und Leser beim Lesen vor allem
+          das Herz spüren, das ich in meine Geschichten lege, die warmen
+          Gefühle und die Freude daran, etwas Neues entstehen zu sehen,
+          besonders wenn zwei Hauptfiguren einander näherkommen und ihre
+          Beziehung wächst.
+        </p>
+
+        <p>
+          Wenn ich gerade nicht schreibe, tauche ich gern in Videospiele ein
+          oder widme mich der Gestaltung von Bildern und Covern. Kreative
+          Ideen begleiten mich also auch abseits der Buchseiten.
+        </p>
+      </section>
+
+      <section>
+        <h2>Mein Steckbrief</h2>
+
+        <dl class="steckbrief">
+          <dt>Autorenname</dt>
+          <dd>Zyn M. Kise</dd>
+
+          <dt>Tätigkeit</dt>
+          <dd>Autor und Selfpublisher</dd>
+
+          <dt>Berufliches Feld</dt>
+          <dd>Buchhaltung</dd>
+
+          <dt>Reihe</dt>
+          <dd>Blutstrom-Saga</dd>
+
+          <dt>Interessen</dt>
+          <dd>Schreiben, Videospiele und kreative Bildgestaltung</dd>
+        </dl>
+      </section>
+
+      <blockquote class="leitsatz">
+        Jeder Stern leuchtet für sich selbst, aber gemeinsam ergeben sie
+        Sternbilder.
+      </blockquote>
+    </main>
+  </div>
+  <script>
+    const nav = document.querySelector('.seiten-navigation');
+    const schalter = document.querySelector('.menue-schalter');
+    schalter.addEventListener('click', () => {
+      const offen = nav.classList.toggle('menu-offen');
+      schalter.setAttribute('aria-expanded', String(offen));
+      schalter.textContent = offen ? '✕ Menü schließen' : '☰ Menü öffnen';
+    });
+  </script>
+</body>
+</html>

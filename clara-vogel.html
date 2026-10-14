@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Charakterprofil von Clara Vogel aus der Blutstrom-Saga.">
+  <title>Clara Vogel – Blutstrom-Saga</title>
+
+  <style>
+    :root {
+      --gold: #D8B66A;
+      --schwarz: #050505;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100svh;
+      background-color: var(--schwarz);
+background-image: url("allgemeiner%20Hintergrund.png");
+background-position: center center;
+background-size: cover;
+background-repeat: no-repeat;
+background-attachment: fixed;
+      color: var(--gold);
+      font-family: Georgia, serif;
+    }
+
+    /* Rechte Navigation: bleibt beim Scrollen an derselben Stelle */
+    .seiten-navigation {
+      position: fixed;
+      top: 50%;
+      right: 2rem;
+      transform: translateY(-50%);
+      z-index: 10;
+      width: 220px;
+      max-height: calc(100svh - 2rem);
+      overflow-y: auto;
+      padding: 1rem;
+      background: rgba(5, 5, 5, 0.96);
+      border: 1px solid var(--gold);
+      box-shadow: 0 0 18px rgba(216, 182, 106, 0.16);
+    }
+
+    .seiten-navigation a {
+      display: block;
+      padding: 0.45rem 0.55rem;
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(216, 182, 106, 0.2);
+      transition: color 0.2s ease, text-shadow 0.2s ease;
+    }
+
+    .seiten-navigation a:hover,
+    .seiten-navigation a:focus-visible,
+    .seiten-navigation .nav-bereich-aktiv {
+      color: #fff0bd;
+      text-shadow: 0 0 8px var(--gold);
+    }
+
+    .seiten-navigation .nav-marke {
+      margin-bottom: 0.5rem;
+      padding-bottom: 0.8rem;
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-bottom: 1px solid var(--gold);
+    }
+
+    .nav-trenner {
+      height: 1px;
+      margin: 0.7rem 0.55rem;
+      background: var(--gold);
+      opacity: 0.7;
+      box-shadow: 0 0 6px rgba(216, 182, 106, 0.45);
+    }
+
+    .seiten-navigation .nav-siegel {
+      display: block;
+      width: 4.5rem;
+      height: 4.5rem;
+      object-fit: contain;
+      margin: 0 auto 0.5rem;
+    }
+
+    /* Der Seiteninhalt bleibt links neben der festen Navigation */
+    .seitenbereich {
+      width: min(1450px, calc(100% - 4rem));
+      margin: 3rem auto;
+      padding-right: 270px;
+    }
+
+    .seiteninhalt {
+      width: min(900px, 100%);
+      margin: 0 auto;
+      padding: clamp(1.5rem, 4vw, 3rem);
+      background: rgba(9, 9, 9, 0.96);
+      border: 1px solid rgba(216, 182, 106, 0.65);
+      box-shadow: 0 0 24px rgba(216, 182, 106, 0.08);
+    }
+
+    .seiten-kicker {
+      margin: 0 0 0.5rem;
+      color: #c7a55c;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0 0 1.5rem;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      text-shadow: 0 0 12px rgba(216, 182, 106, 0.25);
+    }
+
+    h2 {
+      margin: 2.25rem 0 0.75rem;
+      padding-bottom: 0.45rem;
+      border-bottom: 1px solid rgba(216, 182, 106, 0.4);
+      font-size: clamp(1.35rem, 3vw, 1.8rem);
+    }
+
+    p {
+      line-height: 1.7;
+    }
+
+    .steckbrief {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr));
+      gap: 0.8rem;
+      margin: 0;
+    }
+
+    .steckbrief > div:only-child {
+      grid-column: 1 / -1;
+    }
+
+    .steckbrief div {
+      padding: 0.85rem 1rem;
+      background: rgba(216, 182, 106, 0.05);
+      border: 1px solid rgba(216, 182, 106, 0.32);
+    }
+
+    .steckbrief dt {
+      margin-bottom: 0.3rem;
+      color: #c7a55c;
+      font-size: 0.9rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .steckbrief dd {
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    .spoilerbereich {
+      margin-top: 2.25rem;
+      border: 1px solid rgba(216, 182, 106, 0.48);
+      background: rgba(216, 182, 106, 0.035);
+    }
+
+    .spoilerbereich summary {
+      padding: 1rem 1.1rem;
+      color: var(--gold);
+      cursor: pointer;
+      font-weight: bold;
+      line-height: 1.5;
+      list-style: none;
+    }
+
+    .spoilerbereich summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .spoilerbereich summary::after {
+      content: "+";
+      float: right;
+      margin-left: 1rem;
+      color: #fff0bd;
+      font-size: 1.25rem;
+    }
+
+    .spoilerbereich[open] summary::after {
+      content: "−";
+    }
+
+    .spoilerbereich summary:hover,
+    .spoilerbereich summary:focus-visible {
+      color: #fff0bd;
+      text-shadow: 0 0 7px rgba(216, 182, 106, 0.6);
+      outline-color: var(--gold);
+    }
+
+    .spoilertext {
+      padding: 0 1.1rem 0.8rem;
+      border-top: 1px solid rgba(216, 182, 106, 0.25);
+    }
+
+    .zurueck-zur-uebersicht {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.6rem 0.85rem;
+      color: var(--gold);
+      border: 1px solid rgba(216, 182, 106, 0.55);
+      text-decoration: none;
+      transition: color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, text-shadow 0.2s ease;
+    }
+
+    .zurueck-zur-uebersicht:hover,
+    .zurueck-zur-uebersicht:focus-visible {
+      color: #fff0bd;
+      border-color: var(--gold);
+      box-shadow: 0 0 14px rgba(216, 182, 106, 0.38);
+      text-shadow: 0 0 7px rgba(216, 182, 106, 0.6);
+    }
+
+    @media (max-width: 800px) {
+      .seiten-navigation {
+        position: static;
+        width: auto;
+        max-height: none;
+        margin: 1rem;
+        transform: none;
+      }
+
+      .seitenbereich {
+        width: auto;
+        margin: 1rem;
+        padding-right: 0;
+      }
+    }
+  
+/* ===== Blutstrom-Saga: mobile Unterseiten (automatisch ergänzt) ===== */
+.mobile-menue-schalter { display: none; }
+@media (max-width: 760px) {
+  html { overflow-x: clip; }
+  body { background-image: none !important; background-attachment: scroll !important; overflow-x: clip; }
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none;
+    background: #050505 url("allgemeiner%20Hintergrund.png") center center / cover no-repeat;
+    z-index: 0;
+  }
+  body > * { position: relative; z-index: 1; }
+  .seiten-navigation {
+    position: relative !important; inset: auto !important; top: auto !important; right: auto !important;
+    transform: none !important; width: auto !important; max-width: none !important;
+    max-height: none !important; overflow: visible !important;
+    margin: 0.65rem 0.65rem 0 !important; padding: 0.55rem 0.75rem !important;
+    display: flex !important; flex-wrap: wrap; align-items: center; gap: 0.4rem;
+  }
+  .seiten-navigation .nav-siegel { width: 2.5rem !important; height: 2.5rem !important; margin: 0 !important; }
+  .seiten-navigation .nav-marke {
+    display: inline-block !important; border: 0 !important; margin: 0 !important;
+    padding: 0.3rem 0.4rem !important; font-size: 0.92rem !important;
+    text-align: left !important; flex: 1;
+  }
+  .mobile-menue-schalter {
+    display: inline-block; border: 1px solid var(--gold, #D8B66A);
+    background: #17120b; color: var(--gold, #D8B66A);
+    font: inherit; font-size: 0.85rem; padding: 0.5rem 0.65rem;
+    cursor: pointer; min-height: 40px;
+  }
+  .seiten-navigation > a:not(.nav-marke),
+  .seiten-navigation > .nav-trenner { display: none !important; }
+  .seiten-navigation.mobile-offen > a:not(.nav-marke) {
+    display: block !important; flex: 0 0 100%; padding: 0.55rem !important;
+    font-size: 0.9rem !important;
+  }
+  .seiten-navigation.mobile-offen > .nav-trenner { display: block !important; flex: 0 0 100%; }
+  .seitenbereich {
+    width: auto !important; max-width: 100% !important;
+    margin: 0.65rem !important; padding: 0 !important;
+  }
+  .seiteninhalt {
+    width: 100% !important; max-width: 100% !important;
+    min-width: 0 !important; margin: 0 !important; padding: 1rem !important;
+    font-size: 14px !important; overflow-wrap: anywhere;
+  }
+  .seiten-kicker { font-size: 12px !important; margin-bottom: 0.4rem !important; }
+  .seiteninhalt h1 { font-size: 26px !important; line-height: 1.2 !important; margin: 0 0 1.1rem !important; padding-right: 0 !important; }
+  .seiteninhalt h2 { font-size: 19px !important; line-height: 1.3 !important; margin: 1.4rem 0 0.5rem !important; }
+  .seiteninhalt h3 { font-size: 16px !important; line-height: 1.35 !important; }
+  .seiteninhalt p, .seiteninhalt li, .seiteninhalt dd, .seiteninhalt dt,
+  .seiteninhalt blockquote { font-size: 14px !important; line-height: 1.5 !important; }
+  .seiteninhalt p { margin-top: 0; margin-bottom: 0.8rem; }
+  .seiteninhalt img { max-width: 100%; height: auto; }
+  .seiteninhalt table { display: block; max-width: 100%; overflow-x: auto; }
+  .seiteninhalt pre { max-width: 100%; overflow-x: auto; }
+  .seiteninhalt .seiten-siegel { position: static !important; display: block; width: 3.5rem !important; height: auto !important; max-height: 3.5rem !important; margin: 0 0 0.5rem auto !important; }
+  .seiteninhalt .steckbrief { grid-template-columns: 1fr !important; }
+  .seiteninhalt .buchkarte, .seiteninhalt .buchgruppe { max-width: 100%; }
+  .seiteninhalt .buchkarte { grid-template-columns: 1fr !important; }
+  .seiteninhalt .buchcover { max-width: min(100%, 230px) !important; height: auto !important; }
+  .seiteninhalt .leitsatz { padding: 0.8rem !important; }
+}
+</style>
+</head>
+
+<body>
+  <nav class="seiten-navigation" aria-label="Seitennavigation">
+    <img class="nav-siegel" src="BS-Wappen.png" alt="BS-Siegel der Blutstrom-Saga">
+    <a class="nav-marke" href="index.html">Start</a>
+    <button class="mobile-menue-schalter" type="button" aria-expanded="false" aria-label="Navigation öffnen">☰ Menü</button>
+    <a href="buecher.html">Bücher</a>
+    <a class="nav-bereich-aktiv" href="charaktere.html">Charaktere</a>
+    <a href="welt.html">Welt</a>
+    <a href="ueber-mich.html">Über mich</a>
+    <a href="blog.html">Blog</a>
+    <a href="extras.html">Extras</a>
+
+    <div class="nav-trenner" aria-hidden="true"></div>
+
+    <a href="kontakt.html">Kontakt</a>
+    <a href="impressum.html">Impressum</a>
+    <a href="datenschutz.html">Datenschutz</a>
+  </nav>
+
+  <div class="seitenbereich">
+    <main class="seiteninhalt">
+      <p class="seiten-kicker">Charakterprofil</p>
+      <h1>Clara Vogel</h1>
+
+      <section aria-labelledby="steckbrief-titel">
+        <h2 id="steckbrief-titel">Steckbrief</h2>
+        <dl class="steckbrief">
+          <div>
+            <dt>Spezies</dt>
+            <dd>Mensch</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section aria-labelledby="erscheinung-titel">
+        <h2 id="erscheinung-titel">Erscheinung</h2>
+        <p>
+          Clara hat lange blonde Haare und blaue Augen. Sie besitzt ein ruhiges,
+          sanftes Auftreten und wirkt zu Beginn häufig in sich gekehrt.
+        </p>
+      </section>
+
+      <section aria-labelledby="persoenlichkeit-titel">
+        <h2 id="persoenlichkeit-titel">Persönlichkeit und Interessen</h2>
+        <p>
+          Clara ist ruhig, sanft und aufmerksam. Auch während ihres Schweigens
+          entwickelt sie eine enge Bindung zu Aster. Hinter ihrer zunächst
+          zurückgezogenen Art zeigt sich zunehmend eine vernünftige, empathische
+          und emotional gefestigte Frau.
+        </p>
+        <p>
+          Besonders gegenüber Aster und Mira entwickelt Clara eine ausgeprägt
+          mütterliche Fürsorglichkeit und wird innerhalb der Gruppe zunehmend zu
+          einer stabilisierenden Bezugsperson.
+        </p>
+      </section>
+
+      <section aria-labelledby="hintergrund-titel">
+        <h2 id="hintergrund-titel">Hintergrund</h2>
+        <p>
+          Clara verlor ihren Ehemann bei einem tödlichen Autounfall. Weitere
+          traumatische Erlebnisse und schwere Schuldgefühle führten schließlich
+          dazu, dass sie vollständig verstummte. Seit über zwei Jahren lebt sie im
+          Anwesen Eichenblick, wo besonders Aster sich täglich um sie kümmert und
+          ihr regelmäßig vorliest.
+        </p>
+      </section>
+
+      <details class="spoilerbereich">
+        <summary>Spoiler aus „Trug und Traum“ anzeigen</summary>
+        <div class="spoilertext">
+          <p>
+            Clara durchbricht ihr jahrelanges Schweigen schließlich mit einem
+            leisen „Danke“ an Aster und gewinnt während der folgenden Zeit
+            zunehmend ihre Sprache zurück. Gemeinsam mit Aster, Mira und Rolf
+            verlässt sie den Eichenblick und reist zur Möwenbucht.
+          </p>
+          <p>
+            Während der Reise offenbart Clara, dass sie nach dem Tod ihres Mannes
+            versucht hatte, sich das Leben zu nehmen und dabei unbeabsichtigt den
+            Tod ihres eigenen Sohnes verursachte. Die daraus entstandenen
+            Schuldgefühle waren der eigentliche Grund für ihr jahrelanges
+            Verstummen.
+          </p>
+          <p>
+            Clara hilft Rolf später dabei, sich seiner verstorbenen Frau zu stellen.
+            Mit Asters Unterstützung findet auch sie schließlich den Mut, ihrem
+            verstorbenen Sohn wieder in die Augen zu sehen und Abschied zu nehmen.
+          </p>
+          <p>
+            Währenddessen entwickelt sich zwischen Clara und Rolf eine
+            Liebesbeziehung. Gemeinsam nehmen beide die Rolle von Elternfiguren für
+            Aster und Mira an und finden mit ihnen eine neue Wahlfamilie.
+          </p>
+        </div>
+      </details>
+
+      <a class="zurueck-zur-uebersicht" href="charaktere.html">← Zur Charakterübersicht</a>
+    </main>
+  </div>
+
+<script>
+/* Mobile Navigation; die Desktop-Navigation bleibt unverändert. */
+(function () {
+  var nav = document.querySelector('.seiten-navigation');
+  var button = nav && nav.querySelector('.mobile-menue-schalter');
+  if (!button) return;
+  button.addEventListener('click', function () {
+    var open = nav.classList.toggle('mobile-offen');
+    button.setAttribute('aria-expanded', String(open));
+    button.textContent = open ? '✕ Menü schließen' : '☰ Menü';
+  });
+})();
+</script>
+</body>
+</html>
