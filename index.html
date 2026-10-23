@@ -395,10 +395,34 @@ body:has(.leisten-links-drei a:nth-child(3):hover)
   color: #fff0bd;
   text-shadow: 0 0 8px var(--gold), 0 0 16px var(--gold);
 }
+
+    /* Gemeinsame Zeichenfläche: Bildbeschnitt, Dekoration und Klickziele
+       verwenden immer dieselben 1800 x 884 Designkoordinaten. */
+    html, body { width: 100%; height: 100%; overflow: hidden; }
+    body { min-height: 0; display: grid; place-items: center; }
+    .desktop-buehne { position: relative; visibility: hidden; }
+    .desktop-buehne.bereit { visibility: visible; }
+    main.startbild {
+      position: absolute; left: 0; top: 0;
+      width: 1800px; height: 884px; margin: 0;
+      transform-origin: top left;
+      transform: scale(var(--desktop-massstab, 1));
+    }
+    .logo-wappen { width: 560px; max-height: 28%; }
+    nav.seitenmenue { width: 850px; bottom: 1%; gap: 3.2px; z-index: 5; }
+    .leisten-zeile { height: 80px; }
+    .leisten-texte span { font-size: 16px; }
+    .leisten-texte-sechs { transform: translateY(-3.2px); }
+    .leisten-texte-sechs span:nth-child(2) { transform: translateX(-40px); }
+    .leisten-texte-sechs span:nth-child(5) { transform: translateX(32px); }
+    .leisten-texte-sechs span:nth-child(6) { transform: translateX(8px); }
+    /* Mondmitte im konstanten Bildausschnitt. */
+    .bild-link-extras { left: 88%; top: 1.5%; width: 6%; height: 10%; }
   </style>
 </head>
 
 <body>
+  <div class="desktop-buehne">
   <main class="startbild">
     <img
       class="startbild-foto"
@@ -435,7 +459,6 @@ body:has(.leisten-links-drei a:nth-child(3):hover)
       <a class="bild-link bild-link-gedankenhafen" href="gedankenhafen.html" aria-label="Gedankenhafen"></a>
       <a class="bild-link bild-link-kontakt" href="kontakt.html" aria-label="Kontakt"></a>
     </div>
-  </main>
 
   <nav class="seitenmenue" aria-label="Hauptnavigation">
     <div class="leisten-zeile">
@@ -476,5 +499,24 @@ body:has(.leisten-links-drei a:nth-child(3):hover)
       </div>
     </div>
   </nav>
+  </main>
+  </div>
+  <script>
+    (function () {
+      const buehne = document.querySelector('.desktop-buehne');
+      function desktopEinpassen() {
+        const breite = document.documentElement.clientWidth;
+        const hoehe = document.documentElement.clientHeight;
+        const massstab = Math.min((breite * 0.98) / 1800, Math.max(1, hoehe - 32) / 884);
+        buehne.style.width = (1800 * massstab) + 'px';
+        buehne.style.height = (884 * massstab) + 'px';
+        buehne.style.setProperty('--desktop-massstab', massstab);
+        buehne.classList.add('bereit');
+      }
+      desktopEinpassen();
+      window.addEventListener('resize', desktopEinpassen);
+      window.addEventListener('pageshow', desktopEinpassen);
+    }());
+  </script>
 </body>
 </html>
